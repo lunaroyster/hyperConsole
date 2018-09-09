@@ -12,9 +12,10 @@
     <meta property="og:type" content="article">
     <meta property="og:image" content="">
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js"></script>
     
     <link rel="stylesheet" href="style.css" type="text/css" />
-    <script type="text/javascript" src="main.js"></script>
     <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">-->
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
      <!--Global site tag (gtag.js) - Google Analytics -->
@@ -28,14 +29,30 @@
     </script>
   </head>
   <body>
-    <div class="container">
-      <div class="form-group my-4">
-        <input type="text" name="search" class="form-control" id="search" aria-describedby="librarySearch" placeholder="Enter library name">
-      </div>
-      <div class="card">
-        <ul id="results" class="list-group list-group-flush">
-        </ul>
+    <div id="root">
+      <div class="container">
+        <div class="form-group my-4">
+          <input type="text" name="search" v-model="search" class="form-control" id="search" aria-describedby="librarySearch" placeholder="Enter library name">
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <div class="card" v-if="results.length > 0">
+              <ul id="results" class="list-group list-group-flush">
+                <li class="list-group-item" v-for="result in results" v-on:click="loadLibraryByName(result.name)">{{result.name}}</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-8">
+            <h3>Loaded Libraries</h3>
+            <div class="card" v-if="loadedLibraries.length > 0">
+              <ul id="loadedLibraries" class="list-group list-group-flush">
+                <li class="list-group-item" v-for="loadedLibrary in loadedLibraries">{{loadedLibrary.name}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+    <script type="text/javascript" src="main.js"></script>
   </body>
 </html>

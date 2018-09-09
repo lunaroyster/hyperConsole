@@ -1,26 +1,3 @@
-let librariesFetchPromise;
-async function fetchLibraries() {
-  let response = await window.fetch('https://api.cdnjs.com/libraries');
-  let { results } = await response.json();
-  return results;
-}
-async function getLibraries() {
-  if(!librariesFetchPromise) librariesFetchPromise = fetchLibraries();
-  return await librariesFetchPromise;
-}
-async function loadLibraryByURL(url) {
-  let newScript = document.createElement('script');
-  newScript.src = url;
-  document.head.appendChild(newScript);
-}
-async function loadLibraryByName(name) {
-  let libraries = await getLibraries();
-  let library = libraries.find(lib => lib.name === name);
-  loadLibraryByURL(library.latest);
-  console.log(`%cLoaded ${name}`, "font-style: italic");
-}
-
-
 let SuperSecretNamespace = {};
 //SRC: https://stackoverflow.com/a/8618519
 function whenAvailable(name, callback) {
@@ -30,43 +7,68 @@ function whenAvailable(name, callback) {
       window.setTimeout(arguments.callee, interval);
     }, interval);
 }
-async function loadSecretly(name, identifier) {
-  await loadLibraryByName(name);
-  let loadPromise = new Promise((resolve, reject)=> {
-    whenAvailable(identifier, ()=> {
-      SuperSecretNamespace[identifier] = window[identifier];
-      delete window[identifier];
-      resolve();
+
+SuperSecretNamespace.vm = new Vue({
+  el: '#root',
+  data() {
+    return {
+      search: '',
+      results: [],
+      fuse: null,
+      librariesFetchPromise: null,
+      loadedLibraries: [],
+    };
+  },
+  async mounted() {
+    let libraries = await this.getLibraries();
+    await this.hide('Fuse');
+    let { Fuse } = SuperSecretNamespace;
+    this.fuse = new Fuse(libraries, {
+      shouldSort: true,
+      threshold: 0.6,
+      location: 0,
+      distance: 100,
+      maxPatternLength: 32,
+      minMatchCharLength: 1,
+      keys: ["name"]
     });
-  });
-  return loadPromise;
-}
-async function main() {
-  let libraries = await getLibraries();
-  await loadSecretly('fuse.js', 'Fuse');
-  let { Fuse } = SuperSecretNamespace;
-  let fuse = new Fuse(libraries, {
-    shouldSort: true,
-    threshold: 0.6,
-    location: 0,
-    distance: 100,
-    maxPatternLength: 32,
-    minMatchCharLength: 1,
-    keys: ["name"]
-  });
-  let searchBox = document.getElementById('search');
-  let resultsList = document.getElementById('results');
-  searchBox.onkeyup = e => {
-    resultsList.innerHTML = '';
-    let searchResults = fuse.search(searchBox.value).slice(0,20);
-    searchResults.forEach(result=> {
-      let res = document.createElement('li');
-      res.className = "list-group-item";
-      res.innerText = result.name;
-      res.onclick = e => loadLibraryByName(res.innerText);
-      resultsList.appendChild(res);
-    });
-  };
-  console.clear();
-}
-main();
+  },
+  methods: {
+    async hide(identifier) {
+      let loadPromise = new Promise((resolve, reject)=> {
+        whenAvailable(identifier, ()=> {
+          SuperSecretNamespace[identifier] = window[identifier];
+          delete window[identifier];
+          resolve();
+        });
+      });
+      return loadPromise;
+    },
+    async fetchLibraries() {
+      let response = await window.fetch('https://api.cdnjs.com/libraries');
+      let { results } = await response.json();
+      return results;
+    },
+    async getLibraries() {
+      if(!this.librariesFetchPromise) this.librariesFetchPromise = this.fetchLibraries();
+      return await this.librariesFetchPromise;
+    },
+    async loadLibraryByURL(url) {
+      let newScript = document.createElement('script');
+      newScript.src = url;
+      document.head.appendChild(newScript);
+    },
+    async loadLibraryByName(name) {
+      let libraries = await this.getLibraries();
+      let library = libraries.find(lib => lib.name === name);
+      await this.loadLibraryByURL(library.latest);
+      this.loadedLibraries.push(library);
+      console.log(`%cLoaded ${name}`, "font-style: italic");
+    }
+  },
+  watch: {
+    search(newTerm, oldTerm) {
+      this.results = this.fuse.search(newTerm).slice(0, 20);
+    },
+  },
+});
