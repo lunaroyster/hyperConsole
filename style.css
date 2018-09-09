@@ -1,3 +1,7 @@
 body {
   overflow-y: scroll;
 }
+
+.list-group-flush {
+    cursor: pointer;
+}
