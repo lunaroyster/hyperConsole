@@ -52,9 +52,7 @@ async function main() {
     distance: 100,
     maxPatternLength: 32,
     minMatchCharLength: 1,
-    keys: [
-      "name",
-    ]
+    keys: ["name"]
   });
   let searchBox = document.getElementById('search');
   let resultsList = document.getElementById('results');
@@ -63,12 +61,12 @@ async function main() {
     let searchResults = fuse.search(searchBox.value).slice(0,20);
     searchResults.forEach(result=> {
       let res = document.createElement('li');
+      res.className = "list-group-item";
       res.innerText = result.name;
-      res.onclick = e => {
-        loadLibraryByName(res.innerText)
-      }
+      res.onclick = e => loadLibraryByName(res.innerText);
       resultsList.appendChild(res);
-    })
-  }
+    });
+  };
+  console.clear();
 }
 main();

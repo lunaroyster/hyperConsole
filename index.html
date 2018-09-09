@@ -15,7 +15,7 @@
     
     <script type="text/javascript" src="main.js"></script>
     <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">-->
-    
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
      <!--Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109825707-10"></script>
     <script>
@@ -27,8 +27,14 @@
     </script>
   </head>
   <body>
-    <input type="text" name="search" id="search"/>
-    <ul id="results">
-    </ul>
+    <div class="container">
+      <div class="form-group my-4">
+        <input type="text" name="search" class="form-control" id="search" aria-describedby="librarySearch" placeholder="Enter library name">
+      </div>
+      <div class="card">
+        <ul id="results" class="list-group list-group-flush">
+        </ul>
+      </div>
+    </div>
   </body>
 </html>
