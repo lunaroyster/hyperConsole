@@ -43,11 +43,13 @@
             </div>
           </div>
           <div class="col-8">
-            <h3>Loaded Libraries</h3>
             <div class="card" v-if="loadedLibraries.length > 0">
-              <ul id="loadedLibraries" class="list-group list-group-flush">
-                <li class="list-group-item" v-for="loadedLibrary in loadedLibraries">{{loadedLibrary.name}}</li>
-              </ul>
+              <div class="card-body">
+                <h3 class="card-title">Loaded Libraries</h3>
+                <ul id="loadedLibraries" class="list-group list-group-flush">
+                  <li class="list-group-item" v-for="loadedLibrary in loadedLibraries">{{loadedLibrary.name}}</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
