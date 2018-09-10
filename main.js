@@ -97,7 +97,15 @@ SuperSecretNamespace.vm = new Vue({
     open(type) {
       if(type=='github') window.open('https://github.com/lunaroyster/console');
       if(type=='twitter') window.open('https://twitter.com/itsarnavb/');
-    }
+    },
+    refresh() {
+      document.location.reload();
+    },
+  },
+  computed: {
+    resultsMode() {
+      return (this.results.length > 0) || (this.loadedLibraries.length > 0);
+    },
   },
   watch: {
     search(newTerm, oldTerm) {
