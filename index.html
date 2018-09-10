@@ -16,6 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js"></script>
     
     <link rel="stylesheet" href="style.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
      <!--Global site tag (gtag.js) - Google Analytics -->
@@ -32,13 +33,13 @@
     <div id="root">
       <nav class="navbar navbar-light">
         <div class="container-fluid d-flex" style="flex-wrap: nowrap;">
-            <input type="text" name="search" v-model="search" class="form-control" id="search" aria-describedby="librarySearch" placeholder="Search for libraries">
-            <button class="btn bmd-btn-fab bmd-btn-fab-sm ml-2" type="button" v-on:click="open('github')">
-              <i class="fab fa-github"></i>
-            </button>
-            <button class="btn bmd-btn-fab bmd-btn-fab-sm ml-2" type="button" v-on:click="open('twitter')">
-              <i class="fab fa-twitter"></i>
-            </button>
+          <input type="text" name="search" v-model="search" class="form-control" id="search" aria-describedby="librarySearch" placeholder="Search for libraries">
+          <button class="btn bmd-btn-fab bmd-btn-fab-sm ml-2" type="button" v-on:click="open('github')">
+            <i class="fab fa-github"></i>
+          </button>
+          <button class="btn bmd-btn-fab bmd-btn-fab-sm ml-2" type="button" v-on:click="open('twitter')">
+            <i class="fab fa-twitter"></i>
+          </button>
         </div>
       </nav>
       <div class="container my-3" v-if="resultsMode">
@@ -86,10 +87,11 @@
         </div>
       </div>
       <div class="container my-4" v-else>
-        <div class="card">
+        <h1 style="font-family: 'Space Mono', monospace; font-weight: 100" class="my-2">hyperConsole</h1>
+        <div class="card my-4">
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
-              This tool allows you to load libraries into the page, so you can experiment with them using devTools.
+              hyperConsole allows you to load libraries into the page, so you can experiment with them using devTools.
             </li>
             <li class="list-group-item">
               As of now, libraries are loaded from&nbsp;<a href="https://cdnjs.com" target="_blank" class="m-0">cdnjs.com</a>.
