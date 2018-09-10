@@ -55,9 +55,16 @@ SuperSecretNamespace.vm = new Vue({
       return await this.librariesFetchPromise;
     },
     async loadLibraryByURL(url) {
-      let newScript = document.createElement('script');
-      newScript.src = url;
-      document.head.appendChild(newScript);
+      let newElement;
+      if(url.match(/js$/)) {
+        newElement = document.createElement('script');
+        newElement.src = url;
+      } else if (url.match(/css$/)) {
+        newElement = document.createElement('link');
+        newElement.rel = "stylesheet";
+        newElement.href = url;
+      }
+      document.head.appendChild(newElement);
     },
     async loadLibraryByName(name) {
       let libraries = await this.getLibraries();
