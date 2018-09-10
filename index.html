@@ -55,7 +55,7 @@
                   <h5 class="mb-1">{{result.name}}</h5>
                   <small>{{result.version}}</small>
                 </div>
-                <p class="mb-1">{{result.description}}</p>
+                <p class="mb-1 text-muted">{{result.description}}</p>
               </a>
             </div>
           </div>
@@ -88,7 +88,12 @@
       <div class="container my-4" v-else>
         <div class="card">
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Search for libraries. All libraries on <a href="https://cdnjs.com" target="_blank" class="mx-1">cdnjs.com</a> can be loaded.</li>
+            <li class="list-group-item">
+              This tool allows you to load libraries into the page, so you can experiment with them using devTools.
+            </li>
+            <li class="list-group-item">
+              As of now, libraries are loaded from&nbsp;<a href="https://cdnjs.com" target="_blank" class="m-0">cdnjs.com</a>.
+            </li>
           </ul>
         </div>
       </div>
