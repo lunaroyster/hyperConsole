@@ -41,10 +41,15 @@
             </button>
         </div>
       </nav>
-      <div class="container my-4" v-if="resultsMode">
+      <div class="container my-3" v-if="resultsMode">
         <div class="row">
           <div class="col-6">
             <div class="list-group" v-if="results.length > 0">
+              <div class="card my-1">
+                <div class="card-body">
+                  Load libraries into the current page by clicking on them.
+                </div>
+              </div>
               <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" v-for="result in results" v-on:click="loadLibrary(result)">
                 <div class="d-flex w-100 justify-content-between">
                   <h5 class="mb-1">{{result.name}}</h5>
@@ -55,16 +60,26 @@
             </div>
           </div>
           <div class="col-6">
-            <div class="card" v-if="loadedLibraries.length > 0">
-              <div class="card-body">
-                <h3 class="card-title">Loaded Libraries</h3>
-                <ul id="loadedLibraries" class="list-group list-group-flush">
-                  <li class="list-group-item" v-for="loadedLibrary in loadedLibraries">
-                    {{loadedLibrary.name}}
-                  </li>
-                </ul>
-                <button type="button" v-on:click="launchBlankPage(loadedLibraries)" class="btn btn-primary">Create blank page with libraries</button>
-                <button type="button" v-on:click="refresh" class="btn btn-primary">Clear libraries (refresh)</button>
+            <div v-if="loadedLibraries.length > 0">
+              <div class="card">
+                <div class="card-body">
+                  <h3 class="card-title">Loaded Libraries</h3>
+                  <small>Access these in devTools.</small>
+                  <ul id="loadedLibraries" class="list-group list-group-flush">
+                    <li class="list-group-item" v-for="loadedLibrary in loadedLibraries">
+                      {{loadedLibrary.name}}
+                    </li>
+                  </ul>
+                  <button type="button" v-on:click="refresh" class="btn btn-primary">Clear libraries (refresh)</button>
+                </div>
+              </div>
+              <div class="card my-4">
+                <div class="card-body">
+                  <p class="card-text">
+                    You can launch a blank page with these libraries preloaded. You might need to disable popup blockers.
+                  </p>
+                  <button type="button" v-on:click="launchBlankPage(loadedLibraries)" class="btn btn-primary">Launch page with libraries</button>
+                </div>
               </div>
             </div>
           </div>
@@ -73,10 +88,7 @@
       <div class="container my-4" v-else>
         <div class="card">
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Search for libraries. All libraries on CDNJS can be loaded.</li>
-            <li class="list-group-item">You can load libraries into the current page by clicking on them. They're accessible when you open the console. </li>
-            <li class="list-group-item">If you have a single screen, I recommend bottom dock mode.</li>
-            <li class="list-group-item">Once you select libraries, you can also launch a blank page.</li>
+            <li class="list-group-item">Search for libraries. All libraries on <a href="https://cdnjs.com" target="_blank" class="mx-1">cdnjs.com</a> can be loaded.</li>
           </ul>
         </div>
       </div>
