@@ -60,12 +60,12 @@
             <div class="card" v-if="loadedLibraries.length > 0">
               <div class="card-body">
                 <h3 class="card-title">Loaded Libraries</h3>
-                <span v-on:click="launchBlankPage(loadedLibraries)">Launch blank page</span>
                 <ul id="loadedLibraries" class="list-group list-group-flush">
                   <li class="list-group-item" v-for="loadedLibrary in loadedLibraries">
                     {{loadedLibrary.name}}
                   </li>
                 </ul>
+                <button type="button" v-on:click="launchBlankPage(loadedLibraries)" class="btn btn-primary">Launch page with libraries</button>
               </div>
             </div>
           </div>
