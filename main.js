@@ -22,6 +22,7 @@ SuperSecretNamespace.vm = new Vue({
   async mounted() {
     let libraries = await this.getLibraries();
     await this.hide('Fuse');
+    await this.hide('Vue');
     let { Fuse } = SuperSecretNamespace;
     this.fuse = new Fuse(libraries, {
       shouldSort: true,
@@ -45,7 +46,7 @@ SuperSecretNamespace.vm = new Vue({
       return loadPromise;
     },
     async fetchLibraries() {
-      let response = await window.fetch('https://api.cdnjs.com/libraries');
+      let response = await window.fetch('https://api.cdnjs.com/libraries?fields=version,description');
       let { results } = await response.json();
       return results;
     },
@@ -64,6 +65,30 @@ SuperSecretNamespace.vm = new Vue({
       await this.loadLibraryByURL(library.latest);
       this.loadedLibraries.push(library);
       console.log(`%cLoaded ${name}`, "font-style: italic");
+    },
+    async launchBlankPage(libraries) {
+      let page = this.pageWithLibraries(libraries);
+      this.launchWebpage(page);
+    },
+    pageWithLibraries(libraries) {
+      let scripts = libraries.map(lib=>`<script src="${lib.latest}"></script>`).join('\n');
+      let names = libraries.map(lib=>`<div>${lib.name}</div>`).join('\n');
+      return `
+      <html>
+        <head>
+          ${scripts}
+        </head>
+        <body>
+          The following scripts are loaded, and accessible from the console: 
+          ${names}
+        </body>
+      </html>
+      `;
+    },
+    async launchWebpage(html) {
+      let blob = new window.Blob([html], {type: 'text/html'});
+      let url = window.URL.createObjectURL(blob);
+      window.open(url);
     }
   },
   watch: {

@@ -35,19 +35,36 @@
           <input type="text" name="search" v-model="search" class="form-control" id="search" aria-describedby="librarySearch" placeholder="Enter library name">
         </div>
         <div class="row">
-          <div class="col-4">
-            <div class="card" v-if="results.length > 0">
-              <ul id="results" class="list-group list-group-flush">
-                <li class="list-group-item" v-for="result in results" v-on:click="loadLibraryByName(result.name)">{{result.name}}</li>
-              </ul>
+          <div class="col-6">
+            <div class="list-group" v-if="results.length > 0">
+              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" v-for="result in results" v-on:click="loadLibraryByName(result.name)">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">{{result.name}}</h5>
+                  <small>{{result.version}}</small>
+                </div>
+                <p class="mb-1">{{result.description}}</p>
+                <!--<small>Donec id elit non mi porta.</small>-->
+              </a>
             </div>
+            <!--<div class="card" >-->
+            <!--  <ul id="results" class="list-group list-group-flush">-->
+            <!--    <li class="list-group-item d-flex" v-for="result in results" v-on:click="loadLibraryByName(result.name)">-->
+            <!--      <div class="">-->
+            <!--        <span>{{result.name}}</span><span class="text-muted">{{result.version}}</span>-->
+            <!--      </div>-->
+            <!--    </li>-->
+            <!--  </ul>-->
+            <!--</div>-->
           </div>
-          <div class="col-8">
+          <div class="col-6">
             <div class="card" v-if="loadedLibraries.length > 0">
               <div class="card-body">
                 <h3 class="card-title">Loaded Libraries</h3>
+                <span v-on:click="launchBlankPage(loadedLibraries)">Launch blank page</span>
                 <ul id="loadedLibraries" class="list-group list-group-flush">
-                  <li class="list-group-item" v-for="loadedLibrary in loadedLibraries">{{loadedLibrary.name}}</li>
+                  <li class="list-group-item" v-for="loadedLibrary in loadedLibraries">
+                    {{loadedLibrary.name}}
+                  </li>
                 </ul>
               </div>
             </div>
