@@ -66,6 +66,10 @@ SuperSecretNamespace.vm = new Vue({
       this.loadedLibraries.push(library);
       console.log(`%cLoaded ${name}`, "font-style: italic");
     },
+    async loadLibrary(library) {
+      await this.loadLibraryByName(library.name);
+      this.search = '';
+    },
     async launchBlankPage(libraries) {
       let page = this.pageWithLibraries(libraries);
       this.launchWebpage(page);

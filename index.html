@@ -37,7 +37,7 @@
         <div class="row">
           <div class="col-6">
             <div class="list-group" v-if="results.length > 0">
-              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" v-for="result in results" v-on:click="loadLibraryByName(result.name)">
+              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" v-for="result in results" v-on:click="loadLibrary(result)">
                 <div class="d-flex w-100 justify-content-between">
                   <h5 class="mb-1">{{result.name}}</h5>
                   <small>{{result.version}}</small>
@@ -46,15 +46,6 @@
                 <!--<small>Donec id elit non mi porta.</small>-->
               </a>
             </div>
-            <!--<div class="card" >-->
-            <!--  <ul id="results" class="list-group list-group-flush">-->
-            <!--    <li class="list-group-item d-flex" v-for="result in results" v-on:click="loadLibraryByName(result.name)">-->
-            <!--      <div class="">-->
-            <!--        <span>{{result.name}}</span><span class="text-muted">{{result.version}}</span>-->
-            <!--      </div>-->
-            <!--    </li>-->
-            <!--  </ul>-->
-            <!--</div>-->
           </div>
           <div class="col-6">
             <div class="card" v-if="loadedLibraries.length > 0">
