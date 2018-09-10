@@ -93,6 +93,10 @@ SuperSecretNamespace.vm = new Vue({
       let blob = new window.Blob([html], {type: 'text/html'});
       let url = window.URL.createObjectURL(blob);
       window.open(url);
+    },
+    open(type) {
+      if(type=='github') window.open('https://github.com/lunaroyster/console');
+      if(type=='twitter') window.open('https://twitter.com/itsarnavb/');
     }
   },
   watch: {

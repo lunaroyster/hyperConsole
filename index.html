@@ -16,7 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.min.js"></script>
     
     <link rel="stylesheet" href="style.css" type="text/css" />
-    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
      <!--Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-109825707-10"></script>
@@ -30,10 +30,18 @@
   </head>
   <body>
     <div id="root">
-      <div class="container">
-        <div class="form-group my-4">
-          <input type="text" name="search" v-model="search" class="form-control" id="search" aria-describedby="librarySearch" placeholder="Enter library name">
+      <nav class="navbar navbar-light">
+        <div class="container-fluid d-flex" style="flex-wrap: nowrap;">
+            <input type="text" name="search" v-model="search" class="form-control" id="search" aria-describedby="librarySearch" placeholder="Enter library name">
+            <button class="btn bmd-btn-fab bmd-btn-fab-sm ml-2" type="button" v-on:click="open('github')">
+              <i class="fab fa-github"></i>
+            </button>
+            <button class="btn bmd-btn-fab bmd-btn-fab-sm ml-2" type="button" v-on:click="open('twitter')">
+              <i class="fab fa-twitter"></i>
+            </button>
         </div>
+      </nav>
+      <div class="container my-4" v-if="true">
         <div class="row">
           <div class="col-6">
             <div class="list-group" v-if="results.length > 0">
@@ -43,7 +51,6 @@
                   <small>{{result.version}}</small>
                 </div>
                 <p class="mb-1">{{result.description}}</p>
-                <!--<small>Donec id elit non mi porta.</small>-->
               </a>
             </div>
           </div>
@@ -61,6 +68,9 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="container my-4" v-else>
+        
       </div>
     </div>
     <script type="text/javascript" src="main.js"></script>
